@@ -2,13 +2,14 @@ import React, { StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./app/store.js";
 
 const App = React.lazy(() => import("./App.jsx"));
 const Home = React.lazy(() => import("./components/Home.jsx"));
 const Login = React.lazy(() => import("./components/Login.jsx"));
 const Register = React.lazy(() => import("./components/Register.jsx"));
 const Videoplayer = React.lazy(() => import("./components/Videoplayer.jsx"));
-const Sidemenu = React.lazy(() => import("./components/Sidemenu.jsx"));
 const Channel = React.lazy(() => import("./components/Channel.jsx"));
 const Error = React.lazy(() => import("./components/Error.jsx"));
 
@@ -37,7 +38,6 @@ const appRouter = createBrowserRouter([
             }
           >
             <Home />
-            <Sidemenu />
           </Suspense>
         ),
       },
@@ -111,7 +111,9 @@ const appRouter = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <RouterProvider router={appRouter} />
-  </StrictMode>
+  <Provider store={store}>
+    <StrictMode>
+      <RouterProvider router={appRouter} />
+    </StrictMode>
+  </Provider>
 );
