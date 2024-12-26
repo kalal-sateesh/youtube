@@ -5,7 +5,7 @@ import ProfileIcon from "../assets/Images/profile-icon.png";
 
 const Sidebar = () => {
   return (
-    <div className="w-auto h-[90vh] absolute sm:left-3 left-2 mt-[60px]">
+    <div className="w-auto h-[90vh] fixed sm:left-3 left-2 mt-[60px]">
       <div className="sm:px-4 px-1 py-4 sm:w-[60px] w-[40px] h-auto flex gap-2 flex-col items-center hover:cursor-pointer hover:bg-[#E5E5E5] rounded-lg">
         <div>
           <img src={HomeIcon} alt="Home-icon" className="sm:w-[20px] sm:h-[20px] w-[15px] h-[15px]" />

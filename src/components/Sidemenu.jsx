@@ -10,7 +10,7 @@ import ProfileIcon from "../assets/Images/profile-icon.png";
 import Allsubscription from "../assets/Images/hamburger.png";
 const Sidemenu = () => {
   return (
-    <div className="sm:w-[220px] w-[115px] h-[560px] absolute sm:left-4 left-0 mt-[60px] overflow-y-auto text-xs sm:text-base">
+    <div className="sm:w-[220px] w-[115px] h-[560px] fixed sm:left-4 left-0 mt-[60px] overflow-y-auto text-xs sm:text-base">
       <div className="px-3 py-2 flex sm:gap-9 gap-2 items-center hover:cursor-pointer hover:bg-[#E5E5E5] rounded-lg">
         <div>
           <img
