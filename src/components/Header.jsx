@@ -5,12 +5,17 @@ import Sidemenu from "./Sidemenu";
 import Sidebar from "./Sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { togglenavbar } from "./HeaderSlice";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
-  // const [sidebar, setSidebar] = useState(true);
-
   const sidebar = useSelector((state) => state.navbar.sidebar);
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  const handleNavigateToLogin = () => {
+    navigate("/login");
+  };
 
   const handleToggleSidebar = () => {
     dispatch(togglenavbar());
@@ -56,7 +61,10 @@ function Header() {
           </div>
           <div className="flex items-center">
             {/* className="rounded-full py-2 px-4 bg-[#E5E5E5] hover:bg-slate-300" */}
-            <button className="sm:px-3 sm:py-2 px-1 py-1 bg-[#FFFFFF] hover:bg-[#DEF1FF] rounded-full text-xs sm:text-sm text-blue-600 font-semibold border-[1px] border-gray-400">
+            <button
+              className="sm:px-3 sm:py-2 px-1 py-1 bg-[#FFFFFF] hover:bg-[#DEF1FF] rounded-full text-xs sm:text-sm text-blue-600 font-semibold border-[1px] border-gray-400"
+              onClick={handleNavigateToLogin}
+            >
               Sign in
             </button>
           </div>

@@ -9,7 +9,7 @@ const VideoCard = () => {
     <div className={`${sidebar ? `sm:w-[348px] sm:h-[300px] w-[250px]`:`sm:w-[394px] sm:h-[350px] w-[285px]`} rounded-lg overflow-hidden cursor-pointer`}>
       <div className="w-[100%] h-[65%]">
         <iframe
-          src={`https://www.youtube.com/embed/TkStyS992bc`}
+          src={`https://www.youtube.com/embed/L8s6qxQJKgk`}
           title="YouTube video player"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
