@@ -4,6 +4,7 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./app/store.js";
+import ChannelCreate from "./components/ChannelCreate.jsx";
 
 const App = React.lazy(() => import("./App.jsx"));
 const Home = React.lazy(() => import("./components/Home.jsx"));
@@ -20,7 +21,11 @@ const appRouter = createBrowserRouter([
     element: (
       <Suspense
         fallback={
-          <div style={{ marginTop: "100px", fontSize: "20px" }}>Loading...</div>
+          <div
+            style={{ marginTop: "100px", marginLeft: "40%", fontSize: "20px" }}
+          >
+            Loading...
+          </div>
         }
       >
         <App />
@@ -32,7 +37,13 @@ const appRouter = createBrowserRouter([
         element: (
           <Suspense
             fallback={
-              <div style={{ marginTop: "100px", fontSize: "20px" }}>
+              <div
+                style={{
+                  marginTop: "100px",
+                  marginLeft: "40%",
+                  fontSize: "20px",
+                }}
+              >
                 Loading...
               </div>
             }
@@ -46,7 +57,13 @@ const appRouter = createBrowserRouter([
         element: (
           <Suspense
             fallback={
-              <div style={{ marginTop: "100px", fontSize: "20px" }}>
+              <div
+                style={{
+                  marginTop: "100px",
+                  marginLeft: "40%",
+                  fontSize: "20px",
+                }}
+              >
                 Loading...
               </div>
             }
@@ -60,7 +77,13 @@ const appRouter = createBrowserRouter([
         element: (
           <Suspense
             fallback={
-              <div style={{ marginTop: "100px", fontSize: "20px" }}>
+              <div
+                style={{
+                  marginTop: "100px",
+                  marginLeft: "40%",
+                  fontSize: "20px",
+                }}
+              >
                 Loading...
               </div>
             }
@@ -74,7 +97,13 @@ const appRouter = createBrowserRouter([
         element: (
           <Suspense
             fallback={
-              <div style={{ marginTop: "100px", fontSize: "20px" }}>
+              <div
+                style={{
+                  marginTop: "100px",
+                  marginLeft: "40%",
+                  fontSize: "20px",
+                }}
+              >
                 Loading...
               </div>
             }
@@ -88,7 +117,13 @@ const appRouter = createBrowserRouter([
         element: (
           <Suspense
             fallback={
-              <div style={{ marginTop: "100px", fontSize: "20px" }}>
+              <div
+                style={{
+                  marginTop: "100px",
+                  marginLeft: "40%",
+                  fontSize: "20px",
+                }}
+              >
                 Loading...
               </div>
             }
@@ -97,11 +132,35 @@ const appRouter = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: "/create",
+        element: (
+          <Suspense
+            fallback={
+              <div
+                style={{
+                  marginTop: "100px",
+                  marginLeft: "40%",
+                  fontSize: "20px",
+                }}
+              >
+                Loading...
+              </div>
+            }
+          >
+            <ChannelCreate />
+          </Suspense>
+        ),
+      },
     ],
     errorElement: (
       <Suspense
         fallback={
-          <div style={{ marginTop: "100px", fontSize: "20px" }}>Loading...</div>
+          <div
+            style={{ marginTop: "100px", marginLeft: "40%", fontSize: "20px" }}
+          >
+            Loading...
+          </div>
         }
       >
         <Error />
