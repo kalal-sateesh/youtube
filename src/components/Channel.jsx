@@ -1,10 +1,29 @@
 import { useSelector } from "react-redux";
-import coverImage from "../assets/Images/coverImage.jpg";
+// import coverImage from "../assets/Images/coverImage.jpg";
 import grayRightTick from "../assets/Images/grayRightTick.png";
 import ChannelVideoCard from "./ChannelVideoCard";
+// import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Channel = () => {
+  const [channelVideos, setChannelVideos] = useState([]);
+  const [clickedIndex, setClickedIndex] = useState(null);
   const sidebar = useSelector((state) => state.navbar.sidebar);
+  const userData = useSelector((state) => state.userData.userData);
+
+  // const params = useParams();
+  // console.log(params);
+  console.log(userData);
+  const navigate = useNavigate();
+
+  const handleNavigatetoAddvido = () => {
+    navigate(`/${userData ? userData[0]._id : ""}/addvideo`);
+  };
+
+  useEffect(() => {
+    setChannelVideos(userData.length > 0 ? userData[0].channel[0].videos : []);
+  }, [userData]);
 
   return (
     <div
@@ -14,7 +33,7 @@ const Channel = () => {
     >
       <div className="">
         <img
-          src={coverImage}
+          src={userData.length > 0 ? userData[0].channel[0].channelBanner : ""}
           alt="cover-image"
           className="w-full rounded-lg h-[200px] object-cover"
         />
@@ -23,14 +42,16 @@ const Channel = () => {
       <div className="flex md:flex-row flex-col gap-2">
         <div className="">
           <img
-            src={coverImage}
+            src={userData.length > 0 ? userData[0].avatar : ""}
             alt="profile-icon"
             className="lg:w-[150px] lg:h-[150px] md:w-[80px] md:h-[80px] w-[60px] h-[60px] rounded-full"
           />
         </div>
         <div className="flex flex-col gap-2">
           <div className="text-2xl font-bold flex gap-1 items-center">
-            <div>T-Series Tel </div>
+            <div>
+              {userData.length > 0 ? userData[0].channel[0].channelName : ""}{" "}
+            </div>
             <img
               src={grayRightTick}
               alt="gray-right-tick icon"
@@ -38,22 +59,22 @@ const Channel = () => {
             />
           </div>
           <div className="text-sm">
-            <span className=""> @TseriesTelugu</span>
+            <span className="">
+              {userData.length > 0 ? userData[0].channel[0].owner : ""}
+            </span>
             <span className="text-gray-600">
               {" "}
-              • 12.2M subscribers • 7.6K videos
+              • {userData.length > 0
+                ? userData[0].channel[0].subscribers
+                : ""}{" "}
+              subscribers •{" "}
+              {userData.length > 0 && userData[0].channel[0].videos.length}{" "}
+              videos
             </span>
           </div>
+
           <div className="text-gray-600 text-xs lg:text-sm">
-            &quot;Music can change the world&quot; T-Series is India&apos;s No.1
-            Music Label, believes in bringing world{" "}
-            <span className="text-black cursor-pointer font-bold">...more</span>
-          </div>
-          <div className="text-sm">
-            <span className="text-blue-500 cursor-pointer">
-              youtu.be/HioGuWy8DW0
-            </span>{" "}
-            and 12 more links
+            {userData.length > 0 && userData[0].channel[0].description}
           </div>
           <div className="">
             <button className="bg-black text-white rounded-full px-5 py-2">
@@ -70,20 +91,38 @@ const Channel = () => {
         <div className="hover:cursor-pointer">Live</div>
         <div className="hover:cursor-pointer">Podcast</div>
         <div className="hover:cursor-pointer">Playlist</div>
-        <div className="hover:cursor-pointer">Community</div>
+        <div
+          className="hover:cursor-pointer text-black hover:text-blue-600"
+          onClick={handleNavigatetoAddvido}
+        >
+          Add Video
+        </div>
       </div>
 
       <div className="flex flex-wrap gap-4">
-        <ChannelVideoCard />
-        <ChannelVideoCard />
-        <ChannelVideoCard />
-        <ChannelVideoCard />
-        <ChannelVideoCard />
-        <ChannelVideoCard />
-        <ChannelVideoCard />
-        <ChannelVideoCard />
-        <ChannelVideoCard />
-        <ChannelVideoCard />
+        {channelVideos && channelVideos.length > 0 ? (
+          channelVideos.map((video, index) => (
+            <ChannelVideoCard
+              key={video.videoId}
+              thumbnailUrl={video.thumbnailUrl}
+              title={video.title}
+              views={video.views}
+              uploadedDate={
+                video?.uploadDate
+                  ? video?.uploadDate.split("T")[0]
+                  : video?.uploadDate
+              }
+              videoId={video.videoId}
+              index={index}
+              clickedIndex={clickedIndex}
+              setClickedIndex={setClickedIndex}
+            />
+          ))
+        ) : (
+          <div className="text-lg font-semibold flex justify-center mt-5">
+            No videos
+          </div>
+        )}
       </div>
     </div>
   );

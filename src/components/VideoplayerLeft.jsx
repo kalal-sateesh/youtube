@@ -1,37 +1,82 @@
+/* eslint-disable react/prop-types */
+import ReactPlayer from "react-player";
 import profileIcon from "../assets/Images/profile-icon.png";
 import shareIcon from "../assets/Images/share.png";
 import Comment from "./Comment";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
-const VideoplayerLeft = () => {
+const VideoplayerLeft = ({
+  title,
+  description,
+  thumbnailUrl,
+  uploader,
+  views,
+  likes,
+  uploadDate,
+  comments,
+  profileUrl,
+  setUserComment,
+  userComment,
+  handleAddComment,
+  handleEditComment,
+  setIsEdit,
+  isEdit,
+  setEditCommentId,
+  handleDeleteComment,
+}) => {
+  const [users, setUsers] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState(false);
+  const userData = useSelector((state) => state.userData.userData);
+
+  const handleCancel = () => {
+    console.log("Cancel");
+    setUserComment("");
+    setIsEdit(isEdit && false);
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+    const reqObj = {
+      headers: {
+        Authorization: `JWT ${token}`,
+      },
+    };
+    axios
+      .get(`http://localhost:5000/api/users`, reqObj)
+      .then((res) => {
+        setUsers(res.data);
+      })
+      .catch((err) => console.log("Error fetching user", err.message));
+  }, []);
+
   return (
     <div className="md:w-[70%] w-[100%] flex flex-col gap-3">
       <div className="w-[100%] rounded-lg overflow-hidden">
-        <video
-          /*  src={`https://www.youtube.com/embed/L8s6qxQJKgk`}
-                      title="YouTube video player"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen */
-          className="w-[100%] h-auto"
+        <ReactPlayer
+          url={thumbnailUrl}
+          width="100%"
+          className="h-auto"
           controls
-        >
-          <source src="" type="video/mp4" />
-        </video>
+        />
       </div>
       <div className="font-bold text-xs sm:text-sm md:text-base lg:text-xl">
-        Game Changer Trailer (Telugu) | Ram Charan | Kiara Advani | Shankar
+        {title}
       </div>
       <div className="flex lg:flex-row flex-col justify-between text-xs lg:gap-0 gap-1">
         <div className="flex lg:w-[50%] w-[100%] gap-2 justify-between lg:justify-start">
           <div>
             <img
-              src={profileIcon}
+              src={profileUrl}
               alt="Profile-Icon"
               className="w-[35px] h-[30px] rounded-full"
             />
           </div>
           <div className="flex flex-col">
-            <div className="font-bold ">Sateesh</div>
+            <div className="font-bold ">{uploader}</div>
             <div className="text-gray-500">5.4M Subscribers</div>
           </div>
           <div className="flex items-center">
@@ -53,7 +98,7 @@ const VideoplayerLeft = () => {
                   <path d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2 2 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a10 10 0 0 0-.443.05 9.4 9.4 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a9 9 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.2 2.2 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.9.9 0 0 1-.121.416c-.165.288-.503.56-1.066.56z" />
                 </svg>
               </span>
-              <span className="font-bold ml-2">493k</span>
+              <span className="font-bold ml-2">{likes}</span>
             </div>
             <div className="flex items-center px-2 sm:py-[8px] py-[7px] border-l-[1px] border-gray-400 bg-[#F2F2F2] cursor-pointer hover:bg-[#E5E5E5]">
               <svg
@@ -93,87 +138,85 @@ const VideoplayerLeft = () => {
         </div>
       </div>
       <div className="bg-[#F2F2F2] p-2 rounded-lg">
-        <div className="font-bold">3.6M views 1 month ago</div>
-        <div>
-          #GodariGattu #RamanaGogula #Venkatesh #GodariGattu Lyrical Song |
-          #RamanaGogula | #Venkatesh | Aishwarya Rajesh | Bheems{" "}
+        <div className="font-bold">
+          {views} views, uploaded on {uploadDate}
         </div>
+        <div>{description}</div>
       </div>
       <div className="flex flex-col gap-2">
-        <div className="font-bold text-xl">21,670 Comments</div>
+        <div className="font-bold text-xl">
+          {comments ? comments.length : 0} Comments
+        </div>
         <div className="flex flex-col gap-2">
           <div className="flex gap-2">
             <div className="w-[40px]">
               <img
-                src={profileIcon}
+                src={userData.length > 0 ? userData[0].avatar : ""}
                 alt=""
                 className="w-[40px] h-[35px] rounded-full"
               />
             </div>
-            <div className="w-[95%] flex flex-col gap-1 justify-end">
-              <form action="">
-                <input
-                  type="text"
-                  className="border-b-[1px] border-gray-400 outline-none focus:border-black focus:border-b-[2px] text-sm w-[100%] h-[30px]"
-                  placeholder="Add a comment..."
-                />
-              </form>
+            <form
+              action=""
+              className="w-[95%] flex flex-col gap-1 justify-end"
+              onSubmit={isEdit ? handleEditComment : handleAddComment}
+            >
+              <input
+                type="text"
+                className="border-b-[1px] border-gray-400 outline-none focus:border-black focus:border-b-[2px] text-sm w-[100%] h-[30px]"
+                placeholder="Add a comment..."
+                onChange={(e) => setUserComment(e.target.value)}
+                required
+                value={userComment}
+              />
               <div className="flex gap-3 justify-end">
-                <button className="hover:bg-[#F2F2F2] rounded-full px-3 py-1">
+                <button
+                  className="hover:bg-[#F2F2F2] rounded-full px-3 py-1"
+                  type="reset"
+                  disabled={userComment.length > 0 ? false : true}
+                  onClick={handleCancel}
+                >
                   Cancel
                 </button>
-                <button className="bg-[#F2F2F2] rounded-full px-3 py-1 text-gray-500">
-                  Comment
+                <button
+                  className={`${
+                    userComment.length > 0
+                      ? `bg-black text-white`
+                      : `bg-[#F2F2F2] text-gray-500`
+                  } rounded-full px-3 py-1`}
+                  type="submit"
+                  disabled={userComment.length > 0 ? false : true}
+                >
+                  {isEdit ? "Save" : "Comment"}
                 </button>
               </div>
-            </div>
+            </form>
           </div>
-          <div className="flex gap-2">
-            <div className="w-[40px]">
-              <img
-                src={profileIcon}
-                alt=""
-                className="w-[40px] h-[35px] rounded-full"
-              />
-            </div>
-            <div className="w-[95%] flex flex-col gap-1 justify-end">
-              <div className="font-semibold text-sm">Sateesh kumar goud</div>
-              <div className="text-sm">Description</div>
-              <div className="flex gap-3">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  className="bi bi-pencil-square w-[20px] h-[20px] cursor-pointer"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                  <path
-                    fillRule="evenodd"
-                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"
-                  />
-                </svg>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-trash w-[20px] h-[20px] cursor-pointer"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-                </svg>
-              </div>
-            </div>
-          </div>
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
-          <Comment />
+          {comments &&
+            comments.map((comment, index) => {
+              const user = users.find((u) => u._id === comment.userId);
+              return (
+                <Comment
+                  key={comment._id}
+                  userId={user._id}
+                  text={comment.text}
+                  timestamp={comment.timestamp}
+                  userProfile={user.avatar}
+                  username={user.username}
+                  email={user.email}
+                  index={index}
+                  setSelectedIndex={setSelectedIndex}
+                  selectedIndex={selectedIndex}
+                  handleEditComment={handleEditComment}
+                  setIsEdit={setIsEdit}
+                  isEdit={isEdit}
+                  commentId={comment.commentId}
+                  setEditCommentId={setEditCommentId}
+                  setUserComment={setUserComment}
+                  handleDeleteComment={handleDeleteComment}
+                />
+              );
+            })}
         </div>
       </div>
     </div>

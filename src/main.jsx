@@ -5,6 +5,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./app/store.js";
 import ChannelCreate from "./components/ChannelCreate.jsx";
+import AddNewVideo from "./components/AddNewVideo.jsx";
+import EditVideo from "./components/EditVideo.jsx";
 
 const App = React.lazy(() => import("./App.jsx"));
 const Home = React.lazy(() => import("./components/Home.jsx"));
@@ -113,7 +115,7 @@ const appRouter = createBrowserRouter([
         ),
       },
       {
-        path: "/:username",
+        path: "/user/:id",
         element: (
           <Suspense
             fallback={
@@ -133,7 +135,7 @@ const appRouter = createBrowserRouter([
         ),
       },
       {
-        path: "/create",
+        path: "/:id/create",
         element: (
           <Suspense
             fallback={
@@ -149,6 +151,46 @@ const appRouter = createBrowserRouter([
             }
           >
             <ChannelCreate />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/:id/addvideo",
+        element: (
+          <Suspense
+            fallback={
+              <div
+                style={{
+                  marginTop: "100px",
+                  marginLeft: "40%",
+                  fontSize: "20px",
+                }}
+              >
+                Loading...
+              </div>
+            }
+          >
+            <AddNewVideo />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/:id/editvideo",
+        element: (
+          <Suspense
+            fallback={
+              <div
+                style={{
+                  marginTop: "100px",
+                  marginLeft: "40%",
+                  fontSize: "20px",
+                }}
+              >
+                Loading...
+              </div>
+            }
+          >
+            <EditVideo />
           </Suspense>
         ),
       },
