@@ -1,7 +1,5 @@
 /* eslint-disable react/prop-types */
-// import profileIcon from "../assets/Images/profile-icon.png";
 import tickIcon from "../assets/Images/checked2.png";
-// import video1 from "../assets/Videos/video1.mp4"
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ReactPlayer from "react-player";

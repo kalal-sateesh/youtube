@@ -96,24 +96,6 @@ const Comment = ({
         </div>
       </div>
     </div>
-    // <div className="flex gap-2">
-    //   <div className="w-[40px]">
-    //     <img
-    //       src={userProfile || profileIcon}
-    //       alt="Icon"
-    //       className="w-[40px] h-[35px] rounded-full"
-    //     />
-    //   </div>
-    //   <div className="w-[95%] flex flex-col gap-1 justify-end">
-    //     <div className="font-semibold text-sm">
-    //       {username}{" "}
-    //       {timestamp
-    //         ? `on ${timestamp.split("T")[0]} at ${timestamp.split("T")[1]}`
-    //         : ""}
-    //     </div>
-    //     <div className="text-sm">{text}</div>
-    //   </div>
-    // </div>
   );
 };
 

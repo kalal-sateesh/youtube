@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import FilterButtons from "./filterButtons";
 import VideoCard from "./VideoCard";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { getuserData, removeuserData, setLoggedInStatus } from "./HeaderSlice";
 import { useLocation, useNavigate } from "react-router-dom";
+import FilterButtons from "./FilterButtons";
 
 const Home = () => {
   const [videos, setVideos] = useState([]);
@@ -22,7 +22,7 @@ const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
-  console.log(location);
+
 
   useEffect(() => {
     if (location.state && location.state.searchText) {
@@ -31,14 +31,12 @@ const Home = () => {
         video.title.toLowerCase().includes(searchText)
       );
       setFilteredVideos(updatedVideos);
-      console.log("search text");
     } else if (location.state && location.state.category) {
       const FilteredText = location.state.category.toLowerCase();
       const updatedVideos = videos.filter((video) =>
         video.category.toLowerCase().includes(FilteredText)
       );
       setFilteredVideos(updatedVideos);
-      console.log("category");
     } else {
       setFilteredVideos(videos);
     }

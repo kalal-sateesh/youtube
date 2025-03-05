@@ -1,8 +1,6 @@
 import { useSelector } from "react-redux";
-// import coverImage from "../assets/Images/coverImage.jpg";
 import grayRightTick from "../assets/Images/grayRightTick.png";
 import ChannelVideoCard from "./ChannelVideoCard";
-// import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -12,9 +10,6 @@ const Channel = () => {
   const sidebar = useSelector((state) => state.navbar.sidebar);
   const userData = useSelector((state) => state.userData.userData);
 
-  // const params = useParams();
-  // console.log(params);
-  console.log(userData);
   const navigate = useNavigate();
 
   const handleNavigatetoAddvido = () => {

@@ -23,8 +23,6 @@ const ChannelCreate = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  console.log(userData);
-
   const channelBannerUrlRegex =
     /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|svg|webp))(?:\?.*)?$/i;
 

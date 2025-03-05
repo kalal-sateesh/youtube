@@ -1,12 +1,10 @@
 /* eslint-disable react/prop-types */
 import ReactPlayer from "react-player";
-import profileIcon from "../assets/Images/profile-icon.png";
 import shareIcon from "../assets/Images/share.png";
 import Comment from "./Comment";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 
 const VideoplayerLeft = ({
   title,
@@ -32,7 +30,6 @@ const VideoplayerLeft = ({
   const userData = useSelector((state) => state.userData.userData);
 
   const handleCancel = () => {
-    console.log("Cancel");
     setUserComment("");
     setIsEdit(isEdit && false);
   };

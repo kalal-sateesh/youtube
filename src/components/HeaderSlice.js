@@ -3,7 +3,6 @@ const storedData =
   localStorage.getItem("userData") != null
     ? [JSON.parse(localStorage.getItem("userData"))]
     : [];
-// console.log(storedData);
 const initialState = {
   sidebar: true,
   isLoggedIn: localStorage.getItem("token") != null ? true : false,
@@ -29,7 +28,6 @@ export const HeaderSlice = createSlice({
       state.isError = action.payload;
     },
     getuserData: (state, action) => {
-      // console.log(action.payload);
       state.userData = [action.payload];
     },
     removeuserData: (state) => {

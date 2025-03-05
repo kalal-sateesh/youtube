@@ -153,19 +153,6 @@ export async function deleteComment(req, res) {
     video.markModified("comments");
     await video.save();
     res.status(200).json({ message: "Comment deleted successfully" });
-
-    // const initialLength = user.channel[0].videos.length;
-    // user.channel[0].videos = user.channel[0].videos.filter(
-    //   (v) => v.videoId !== videoId
-    // );
-    // if (user.channel[0].videos.length === initialLength) {
-    //   return res.status(404).json({ message: "Video not found" });
-    // }
-
-    // video.markModified("comments");
-    // await user.save();
-
-    // res.status(200).json({ message: "Video deleted successfully" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

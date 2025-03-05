@@ -10,7 +10,6 @@ const EditVideo = () => {
   const [successMsg, setSuccessMsg] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
   const [title, setTitle] = useState("");
-  //   const [thumbnailUrl, setThumbnailUrl] = useState("");
   const [description, setDescription] = useState("");
   const [userId, setUserId] = useState(null);
   const sidebar = useSelector((state) => state.navbar.sidebar);
@@ -20,9 +19,6 @@ const EditVideo = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { videoId, index } = location.state || {};
-
-  //   const videoRegex =
-  //     /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|embed\/|shorts\/)|youtu\.be\/|vimeo\.com\/\d+|dailymotion\.com\/video\/|dai\.ly\/|(?:[a-zA-Z0-9.-]+\.)?[a-zA-Z]{2,}\/.*\.(mp4|webm|ogg))(\S+)?$/;
 
   const { id } = useParams();
   const navigate = useNavigate();
