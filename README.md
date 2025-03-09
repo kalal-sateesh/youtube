@@ -9,7 +9,7 @@ Currently, two official plugins are available:
 
 ## Project Setup and Installation
 
-1.This project needs Node js make sure to install node js
+1.This project needs Node js make sure to install node js and connect with the mongo db atlas or mongo db compass using connection string "mongodb+srv://sateesh1:sateesh1@cluster0.44rmg.mongodb.net/youtubeDB". Also please make sure to add the IPaddress.
 
 # git clone (origin url)
 
@@ -17,11 +17,11 @@ Currently, two official plugins are available:
 
 # npm install
 
-3.Install the dependencies using the command npm install
+3.Install the dependencies using the command npm install and go to backend folder and run command npm install to install dependencies in backend also.
 
-# npm run dev
+# npm run dev and npm start
 
-4.Run the project on your local using npm run dev
+4.Run the project on your local for frontend using "npm run dev" and also go to backend folder and run the command "npm start" to start the server.
 
 # Technologies used in this project
 
@@ -34,3 +34,6 @@ This is an youtube like project if the user is loggedin user can fetch videos fr
 ### Git Repo Link
 
 [View the repository here](https://github.com/kalal-sateesh/youtube)
+
+
+[Live deployed link](https://youtube-six-brown.vercel.app/)
